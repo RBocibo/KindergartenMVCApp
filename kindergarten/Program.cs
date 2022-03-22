@@ -20,21 +20,12 @@ builder.Services.AddDbContext<kindergartenDbContext>(options =>
 
 });
 
-
-//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-//    .AddEntityFrameworkStores<kindergartenContext>(); 
-//builder.Services.AddDbContext<kindergartenContext>(options =>
-//     options.UseSqlServer(builder.Configuration.GetConnectionString("kindergartenContextConnection")));
-
-//Db Context for identity
-
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<kindergartenContext>();
 
 builder.Services.AddDbContext<kindergartenContext>(options =>
      options.UseSqlServer(builder.Configuration.GetConnectionString("kindergartenContextConnection")));
 
-//builder.Services.AddTransient<IDataService, DataService>();
 
 builder.Services.AddControllersWithViews();
 

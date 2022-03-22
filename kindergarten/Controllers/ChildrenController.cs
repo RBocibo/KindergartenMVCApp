@@ -22,12 +22,6 @@ namespace kindergarten.Controllers
             _context = context;
         }
 
-        // GET: Children
-        //public async Task<IActionResult> Index()
-        //{
-        //    var kindergartenDbContext = _context.Children.Include(c => c.Parent);
-        //    return View(await kindergartenDbContext.ToListAsync());
-        //}
         [Authorize]
         // GET: Children
         public IActionResult Index(string sortOrder, string searchString, int pg = 1)
