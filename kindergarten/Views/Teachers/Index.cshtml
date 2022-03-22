@@ -1,0 +1,119 @@
+﻿@model IEnumerable<kindergarten.Models.Teacher>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    Pager pager = new Pager();
+    int pageNo = 0;
+
+    if(ViewBag.Pager != null)
+    {
+        pager = ViewBag.Pager;
+        pageNo = pager.CurrentPage;
+    }
+}
+
+<div class="container pt-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Teacher List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Teachers" asp-action="Create" class="btn btn-primary">
+                <i class="bi bi-plus-square-fill"></i> Create new teacher
+            </a>
+        </div>
+    </div>
+
+</div>
+@using (Html.BeginForm())
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString")  
+        <input type="submit" value="Search" /></p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Contact)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Child)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Contact)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Child.ChildId)
+            </td>
+            <td>
+                <div class="w-75 btn-group" role="group">
+                        <a asp-controller="Teachers" asp-action="Edit" asp-route-id="@item.TeacherId"
+                        class="btn btn-primary mx-2"><i class="bi bi-pencil-square"></i>Edit</a>
+
+                        <a asp-controller="Teachers" asp-action="Deatils" asp-route-id="@item.TeacherId"
+                        class="btn btn-primary mx-2"><i class="bi bi-pencil-square"></i>Details</a>
+
+                        <a asp-controller="Teachers" asp-action="Delete" asp-route-id="@item.TeacherId"
+                        class="btn btn-primary mx-2"><i class="bi bi-trash-fill"></i>Delete</a>
+                    </div>             
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<div class="container">
+    @if(pager.TotalPages > 0)
+    {
+        <ul class="pagination justify-content-end">
+            @for(var pge = pager.StartPage; pge <= pager.EndPage; pge++)
+            {
+                <li class="page-item @(pge == pager.CurrentPage ? "active" : "")">
+                    <a class="page-link" asp-controller="Teachers" asp-action="Index" asp-route-pg="@pge">@pge</a>
+                </li>
+            }
+        </ul>
+    }
+</div>
+
+<body>
+<div class="container pt-3">
+    <div class="row pt-4">
+        <div class="col-6 text-end">
+            <a asp-controller="Register" asp-action="Index" class="btn btn-primary">
+                <i class="bi bi-plus-square-fill"></i> Go back
+            </a>
+        </div>
+    </div>
+
+</div>
+
+</body>
